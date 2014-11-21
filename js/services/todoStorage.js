@@ -8,18 +8,19 @@
  * model.
  */
 angular.module('todomvc')
-		.factory('todoStorage', function ($http) {
+		.factory('todoStorage', function ($http, $q) {
 			'use strict';
 
 			// You would normally want to pass this in as some sort of config.
-			var apiUri = "http://api.cs1.voodle.de",
+			//var apiUri = "http://api.cs1.voodle.de",
+			var apiUri = "http://127.0.0.1:5000",
 					store = {
 						todos: [],
 
 						clearCompleted: function () {
 							var originalTodos = store.todos.slice(0);
 
-							var completeTodos = [], incompleteTodos = [];
+							var completeTodos = [], incompleteTodos = [], promises;
 							store.todos.forEach(function (todo) {
 								if (todo.completed) {
 									completeTodos.push(todo);
@@ -30,13 +31,23 @@ angular.module('todomvc')
 
 							angular.copy(incompleteTodos, store.todos);
 
-							return $http.delete('/api/todos')
+							promises = _.map(completeTodos, function (todo) {
+								return $http.delete(apiUri + '/todos/' + todo.id)
 									.then(function success() {
-										return store.todos;
+										return true;
 									}, function error() {
-										angular.copy(originalTodos, store.todos);
-										return originalTodos;
+											return false;
 									});
+							});
+
+							return $q.all(promises).then(function (results) {
+								if (_.every(results)) {
+									return store.todos;
+								} else {
+									angular.copy(originalTodos, store.todos);
+									return originalTodos;
+								}
+							});
 						},
 
 						delete: function (todo) {
