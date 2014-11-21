@@ -14,7 +14,8 @@ angular.module('todomvc', ['ngRoute'])
 			templateUrl: 'todomvc-index.html',
 			resolve: {
 				store: function (todoStorage) {
-					// Here, in principle, we could plug in another storage, e. g. local storage.
+					// Fetch the todos (in background)
+					todoStorage.get();
 					return todoStorage;
 				}
 			}
