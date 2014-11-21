@@ -22,9 +22,9 @@ button {
 body {
 	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	line-height: 1.4em;
-	background: #eaeaea url('bg.png');
+	background: #f0f0f0 url('bg.png');
 	color: #4d4d4d;
-	width: 550px;
+	width: 960px;
 	margin: 0 auto;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: antialiased;
@@ -77,8 +77,8 @@ input[type="checkbox"] {
 	font-size: 70px;
 	font-weight: bold;
 	text-align: center;
-	color: #b3b3b3;
-	color: rgba(255, 255, 255, 0.3);
+	color: #8D7D77;
+/*	color: rgba(255, 255, 255, 0.3);*/
 	text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
 	-webkit-text-rendering: optimizeLegibility;
 	-moz-text-rendering: optimizeLegibility;
@@ -350,7 +350,7 @@ input[type="checkbox"] {
 
 #info {
 	margin: 65px auto 0;
-	color: #a6a6a6;
+	color: #777;
 	font-size: 12px;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 	text-align: center;
