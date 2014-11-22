@@ -124,4 +124,34 @@ angular.module('todomvc')
 					}
 				});
 			};
+
+			$scope.loginState = 'Login';
+
+			$scope.login = function(user) {
+				if ($scope.loginState === 'Login') {
+					if (user) {
+						store.login(user).then(function success(x) {
+							if(x) {
+								$scope.loginState = 'Logout';
+								$scope.username = user;
+							}
+						});
+					//	$scope.loginState = 'Logout';
+					}
+				}else {
+					store.logout(user).then(function success(x) {
+						if (x){
+							$scope.loginState = 'Login';
+							$scope.username = '';
+						}
+
+					});
+						//$scope.loginState = 'Login';
+
+
+				}
+
+			};
+
+
 		});

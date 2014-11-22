@@ -7,9 +7,12 @@
 		<style>[ng-cloak] { display: none; }</style>
 	</head>
 	<body ng-app="todomvc">
-		<ng-view />
+	<ng-view />
 
 		<script type="text/ng-template" id="todomvc-index.html">
+			<button ng-click="login('kudi')">{{loginState}}</button>
+			<span> {{username}}</span>
+
 			<section id="todoapp">
 				<h1>to-do-list on steroids</h1>
 				<table id="todo-list">
