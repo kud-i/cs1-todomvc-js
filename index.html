@@ -10,7 +10,7 @@
 	<ng-view />
 
 		<script type="text/ng-template" id="todomvc-index.html">
-			<button ng-click="login('kudi')">{{loginState}}</button>
+			<button ng-click="login('Dave')">{{loginState}}</button>
 			<span> {{username}}</span>
 
 			<section id="todoapp">
@@ -36,12 +36,18 @@
 						</td>
 						<td>
 							<div class="view">
-								<label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
+								<label ng-dblclick="editTodo(todo)">{{todo.subject}}</label>
 								<button class="destroy" ng-click="removeTodo(todo)"></button>
 							</div>
 							<form ng-submit="saveEdits(todo, 'submit')">
-								<input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
+								<input class="edit" ng-trim="false" ng-model="todo.subject" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
 							</form>
+						</td>
+						<td>
+							<button ng-click="go">{{todo.clock}}</button>
+						</td>
+						<td>
+							<label ng-model="todo.totaltime">{{todo.totaltime}}</label>
 						</td>
 					</tr>
 					</tbody>

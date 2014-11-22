@@ -32,11 +32,13 @@ angular.module('todomvc')
 
 			$scope.addTodo = function () {
 				var newTodo = {
-					title: $scope.newTodo.trim(),
+					subject: $scope.newTodo.trim(),
+					times: [],
+					totaltime: 0,
 					completed: false
 				};
 
-				if (newTodo.title === "") {
+				if (newTodo.subject === "") {
 					return;
 				}
 
@@ -72,16 +74,17 @@ angular.module('todomvc')
 					return;
 				}
 
-				todo.title = todo.title.trim();
+				todo.subject = todo.subject.trim();
+				todo.time;
 
-				if (todo.title === $scope.originalTodo.title) {
+				if (todo.subject === $scope.originalTodo.subject) {
 					return;
 				}
 
-				store[todo.title ? 'put' : 'delete'](todo)
+				store[todo.subject ? 'put' : 'delete'](todo)
 						.then(function success() {
 						}, function error() {
-							todo.title = $scope.originalTodo.title;
+							todo.subject = $scope.originalTodo.subject;
 						})
 						.finally(function () {
 							$scope.editedTodo = null;
@@ -153,5 +156,12 @@ angular.module('todomvc')
 
 			};
 
+
+
+			$scope.go = function () {
+
+
+
+			}
 
 		});

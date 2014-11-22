@@ -32,7 +32,7 @@ angular.module('todomvc')
 							angular.copy(incompleteTodos, store.todos);
 
 							promises = _.map(completeTodos, function (todo) {
-								return $http.delete(apiUri + '/todos/' + todo.id)
+								return $http.delete(apiUri + '/todos/' + todo.id,null,{params:{username: store.user}})
 									.then(function success() {
 										return true;
 									}, function error() {
@@ -55,7 +55,7 @@ angular.module('todomvc')
 
 							store.todos.splice(store.todos.indexOf(todo), 1);
 
-							return $http.delete(apiUri + '/todos/' + todo.id)
+							return $http.delete(apiUri + '/todos/' + todo.id,null,{params:{username:store.user}})
 									.then(function success() {
 										return store.todos;
 									}, function error() {
@@ -68,14 +68,25 @@ angular.module('todomvc')
 							return $http.get(apiUri + '/todos')
 									.then(function (resp) {
 										angular.copy(resp.data, store.todos);
+										_.each(store.todos, store.getTimes);
 										return store.todos;
 									});
 						},
 
+						getTimes: function(todo){
+							return $http.get(apiUri + '/todos/' + todo.id + '/times',null,{params:{username: store.user}})
+								.then(function (resp) {
+									todo.times = resp.data;
+									todo.totaltime = _.reduce(resp.data,function(x,y){return x+y},0);
+									todo.clock = 'Go';
+								});
+						},
+
+
 						create: function (todo) {
 							var originalTodos = store.todos.slice(0);
 
-							return $http.post(apiUri + '/todos', todo)
+							return $http.post(apiUri + '/todos', todo,{params:{username: store.user}})
 									.then(function success(resp) {
 										todo.id = resp.data.id;
 										store.todos.push(todo);
@@ -89,7 +100,7 @@ angular.module('todomvc')
 						put: function (todo) {
 							var originalTodos = store.todos.slice(0);
 
-							return $http.put(apiUri + '/todos/' + todo.id, todo)
+							return $http.put(apiUri + '/todos/' + todo.id, todo,{params:{username: store.user}})
 									.then(function success() {
 										return store.todos;
 									}, function error() {
@@ -99,7 +110,7 @@ angular.module('todomvc')
 						},
 						user: null,
 						login: function (user){
-						return $http.post(apiUri + '/login/' + user,null)
+						return $http.post(apiUri + '/login/' + user,user,{params:{username:store.user}})
 							.then(function success() {
 								store.user = user;
 								return true;
