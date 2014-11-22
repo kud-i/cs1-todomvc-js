@@ -12,8 +12,8 @@ angular.module('todomvc')
 			'use strict';
 
 			// You would normally want to pass this in as some sort of config.
-			//var apiUri = "http://api.cs1.voodle.de",
-			var apiUri = "http://127.0.0.1:5000",
+			var apiUri = "http://api2.cs1.voodle.de",
+			//var apiUri = "http://127.0.0.1:5000",
 					store = {
 						todos: [],
 
